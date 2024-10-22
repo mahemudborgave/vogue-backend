@@ -8,7 +8,7 @@ app.use(cors()); // Allow cross-origin requests
 app.use(bodyParser.json()); // Parse incoming JSON requests
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/vogue_prism_db', {
+mongoose.connect('mongodb+srv://mahemud:mahemud@cluster0.y3zrjtm.mongodb.net/vogue', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
@@ -172,6 +172,6 @@ app.put('/api/updateProducts/:id', async (req, res) => {
 });
 
 // Start the server
-app.listen(3001, () => {
-    console.log('Server running on http://localhost:3001');
+app.listen(4000, () => {
+    console.log('Server running on 4000');
 });
