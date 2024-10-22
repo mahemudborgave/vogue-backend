@@ -171,6 +171,24 @@ app.put('/api/updateProducts/:id', async (req, res) => {
     }
 });
 
+// Route to Retrieve a Product by ID
+app.get('/api/getProduct/:id', async (req, res) => {
+    const productId = req.params.id;
+
+    try {
+        const product = await Product.findById(productId);
+        
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
+        res.status(200).json(product);
+    } catch (error) {
+        console.error('Error retrieving product:', error);
+        res.status(500).json({ error: 'Failed to retrieve product.' });
+    }
+});
+
 // Start the server
 app.listen(4000, () => {
     console.log('Server running on 4000');
