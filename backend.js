@@ -153,6 +153,33 @@ app.get('/api/getProducts', async (req, res) => {
     }
 });
 
+// API endpoint to get products by category only
+app.get('/api/getProductsByCategory', async (req, res) => {
+    try {
+        const category = req.query.category;
+
+        // Check if category is provided
+        if (!category) {
+            return res.status(400).json({ message: 'Category is required' });
+        }
+
+        // Fetch products that match the specified category
+        const products = await Product.find({ category });
+
+        // Optionally, you can format the response to include images or any additional fields
+        const result = products.map(product => ({
+            ...product._doc,
+            img: product.images[0], // Include only the first image if needed
+        }));
+
+        // Send the response with the products
+        res.json(result);
+    } catch (error) {
+        console.error("Error fetching products by category:", error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 // Get products based on category and name (with optional filters)
 app.get('/api/getUpdateProducts', async (req, res) => {
     const { category, name } = req.query; // Extract query parameters
