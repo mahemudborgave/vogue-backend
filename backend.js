@@ -137,8 +137,8 @@ app.get('/api/getProducts', async (req, res) => {
 
     try {
         const query = {};
-        // if (category) query.category = category;
-        // if (name) query.title = { $regex: name, $options: 'i' };
+        if (category) query.category = category;
+        if (name) query.title = { $regex: name, $options: 'i' };
 
         const products = await Product.find();
         const result = products.map(product => ({
